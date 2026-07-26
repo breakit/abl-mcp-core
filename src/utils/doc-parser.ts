@@ -80,23 +80,23 @@ function parseAbldocEntry(
   let name = ''
   let modifier: string | undefined
 
-  if (/^\s*CLASS\s+/.test(declaration)) {
+  if (/^\s*class\s+/i.test(declaration)) {
     type = 'class'
-    const m = declaration.match(/^\s*CLASS\s+([\w.]+\.)?(\w+)/)
-    if (m) name = m[2]
-  } else if (/^\s*METHOD\s+/.test(declaration)) {
+    const m = declaration.match(/^\s*class\s+(?:[\w.]*\.)?(\w+)/i)
+    if (m) name = m[1]
+  } else if (/^\s*method\s+/i.test(declaration)) {
     type = 'method'
-    const modMatch = declaration.match(/(PUBLIC|PROTECTED|PRIVATE|STATIC)/i)
+    const modMatch = declaration.match(/(public|protected|private|static)/i)
     if (modMatch) modifier = modMatch[1].toLowerCase()
-    const m = declaration.match(/METHOD\s+(?:PUBLIC|PROTECTED|PRIVATE)?\s*(?:STATIC\s*)?(?:HANDLE|LOGICAL|CHARACTER|VOID|INTEGER|DECIMAL)?\s*(\w+)/)
+    const m = declaration.match(/method\s+(?:public|protected|private)?\s*(?:static\s*)?(?:handle|logical|character|void|integer|decimal)?\s*(\w+)/i)
     if (m) name = m[1]
-  } else if (/^\s*FUNCTION\s+/.test(declaration)) {
+  } else if (/^\s*function\s+/i.test(declaration)) {
     type = 'function'
-    const m = declaration.match(/FUNCTION\s+(\w+)/)
+    const m = declaration.match(/function\s+(\w+)/i)
     if (m) name = m[1]
-  } else if (/^\s*PROCEDURE\s+/.test(declaration)) {
+  } else if (/^\s*procedure\s+/i.test(declaration)) {
     type = 'procedure'
-    const m = declaration.match(/PROCEDURE\s+(\w+)/)
+    const m = declaration.match(/procedure\s+(\w+)/i)
     if (m) name = m[1]
   }
 
