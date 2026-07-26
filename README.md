@@ -35,12 +35,17 @@ const resolved = resolveIncludePath('{include.i}', propath, currentFilePath)
 
 ```
 src/
+├── contracts/
+│   ├── abl.ts        # ABL parser types
+│   ├── df.ts         # DF schema types
+│   ├── project.ts    # PROPATH and config types
+│   └── symbol.ts     # Symbol extraction types
 ├── parser/
-│   ├── abl.ts      # tree-sitter-abl wrapper
-│   └── df.ts       # .df schema file parser
+│   ├── abl.ts        # tree-sitter-abl wrapper
+│   └── df.ts         # .df schema file parser
 ├── project/
-│   ├── protopath.ts # PROPATH resolution
-│   └── config.ts    # abl.toml config reader
+│   ├── protopath.ts  # PROPATH resolution
+│   └── config.ts     # abl.toml config reader
 ├── symbol/
 │   ├── functions.ts
 │   ├── tables.ts
