@@ -2,6 +2,8 @@
 
 Pure ABL analysis library — no MCP dependency. Can be reused by the language server, CLIs, or other tools.
 
+Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosystem. See also: [`@breakit/abl-mcp-generators`](https://github.com/breakit/abl-mcp-generators).
+
 ## Features
 
 ### Parsing & Analysis
