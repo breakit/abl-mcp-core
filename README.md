@@ -12,7 +12,7 @@ Pure ABL analysis library — no MCP dependency. Can be reused by the language s
 - **Dead code detection** — Find unused functions, includes, and preprocessor defines
 
 ### Linting
-- **ABL lint** — Check coding conventions: missing `NO-UNDO`, deprecated statements, naming patterns
+- **ABL lint** — 33 Prolint-inspired rules covering NO-UNDO, deprecated keywords, lock safety, performance (WHERE clauses, lock types), style (naming conventions, block labels), bug prevention (backslash-in-strings, dot-comments, RETURN ERROR), cross-platform issues (path separators), and i18n
 
 ### REST / OpenAPI
 - **OpenAPI generator** — Parse `@openapi.openedge.export` annotations and generate OpenAPI 3.0 JSON specs
