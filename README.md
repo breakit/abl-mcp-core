@@ -2,7 +2,7 @@
 
 Pure ABL analysis library — no MCP dependency. Can be reused by the language server, CLIs, or other tools.
 
-Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosystem. See also: [`@breakit/abl-mcp-generators`](https://github.com/breakit/abl-mcp-generators), [`@breakit/abl-mcp-contracts`](https://github.com/breakit/abl-mcp-contracts).
+Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosystem. See also: [`@breakit/abl-mcp-generators`](https://github.com/breakit/abl-mcp-generators), [`@breakit/abl-mcp-contracts`](https://github.com/breakit/abl-mcp-contracts). Documentation utilities live in [`@breakit/abl-mcp-doc`](https://github.com/breakit/abl-mcp-doc).
 
 ## Features
 
@@ -14,7 +14,7 @@ Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosyste
 - **Dead code detection** — Find unused functions, includes, and preprocessor defines
 
 ### Linting
-- **ABL lint** — 33 Prolint-inspired rules covering NO-UNDO, deprecated keywords, lock safety, performance (WHERE clauses, lock types), style (naming conventions, block labels), bug prevention (backslash-in-strings, dot-comments, RETURN ERROR), cross-platform issues (path separators), and i18n
+- **ABL lint** — 37 Prolint-inspired rules covering NO-UNDO, deprecated keywords, lock safety, performance (WHERE clauses, lock types), style (naming conventions, block labels), bug prevention (backslash-in-strings, dot-comments, RETURN ERROR), cross-platform issues (path separators), and i18n
 
 ### REST / OpenAPI
 - **OpenAPI generator** — Parse `@openapi.openedge.export` annotations and generate OpenAPI 3.0 JSON specs
@@ -23,10 +23,6 @@ Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosyste
 - **PROPATH resolver** — Load `abl.toml`, resolve `{include}` paths against PROPATH
 - **Project config** — Read `abl.toml` for schema dirs, databases, and PROPATH
 - **Symbol extraction** — Extract function signatures, table/field definitions, include dependencies
-
-### Documentation
-- **ABLDoc parser** — Parse `/** */` doc comments and extract structured entries
-- **Doc comment generator** — Auto-generate properly formatted ABLDoc comment blocks
 
 ### Data Contracts → [`@breakit/abl-mcp-contracts`](https://github.com/breakit/abl-mcp-contracts)
 Generating temp-table includes, ProDataSet includes, JSON Schema, and TypeScript interfaces — now a separate package.
@@ -37,8 +33,6 @@ Generating temp-table includes, ProDataSet includes, JSON Schema, and TypeScript
 import { initAblParser, parseAblFile, loadPropath, parseDf } from '@breakit/abl-mcp-core'
 import { buildDependencyGraph, diffDfFiles, lintProject, findDeadCode } from '@breakit/abl-mcp-core'
 import { generateOpenApiSpec } from '@breakit/abl-mcp-core'
-import { generateDocComment, parseAblDoc } from '@breakit/abl-mcp-core'
-
 // Dependency analysis
 const graph = buildDependencyGraph('./project-root')
 
@@ -77,9 +71,6 @@ src/
 │   ├── functions.ts
 │   ├── tables.ts
 │   └── includes.ts
-├── utils/
-│   ├── doc-comment.ts      # ABLDoc comment generator
-│   └── doc-parser.ts       # ABLDoc comment parser
 └── index.ts
 ```
 
