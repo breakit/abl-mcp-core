@@ -2,7 +2,7 @@
 
 Pure ABL analysis library — no MCP dependency. Can be reused by the language server, CLIs, or other tools.
 
-Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosystem. See also: [`@breakit/abl-mcp-generators`](https://github.com/breakit/abl-mcp-generators).
+Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosystem. See also: [`@breakit/abl-mcp-generators`](https://github.com/breakit/abl-mcp-generators), [`@breakit/abl-mcp-contracts`](https://github.com/breakit/abl-mcp-contracts).
 
 ## Features
 
@@ -28,11 +28,8 @@ Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosyste
 - **ABLDoc parser** — Parse `/** */` doc comments and extract structured entries
 - **Doc comment generator** — Auto-generate properly formatted ABLDoc comment blocks
 
-### Data Contracts
-- **Temp-table include** — Generate `.i` files from table/field definitions
-- **ProDataSet include** — Generate `.i` files wrapping temp-tables in datasets
-- **JSON Schema** — Generate JSON Schema from ABL table definitions
-- **TypeScript interfaces** — Generate TypeScript types from ABL field definitions
+### Data Contracts → [`@breakit/abl-mcp-contracts`](https://github.com/breakit/abl-mcp-contracts)
+Generating temp-table includes, ProDataSet includes, JSON Schema, and TypeScript interfaces — now a separate package.
 
 ## Usage
 
@@ -41,7 +38,6 @@ import { initAblParser, parseAblFile, loadPropath, parseDf } from '@breakit/abl-
 import { buildDependencyGraph, diffDfFiles, lintProject, findDeadCode } from '@breakit/abl-mcp-core'
 import { generateOpenApiSpec } from '@breakit/abl-mcp-core'
 import { generateDocComment, parseAblDoc } from '@breakit/abl-mcp-core'
-import { generateTempTableInclude, generateJsonSchema, generateTypeScript } from '@breakit/abl-mcp-core'
 
 // Dependency analysis
 const graph = buildDependencyGraph('./project-root')
@@ -54,10 +50,6 @@ const report = lintProject('./project-root')
 
 // OpenAPI from ABL REST annotations
 const spec = generateOpenApiSpec('./project-root')
-
-// Data contracts
-const tt = generateTempTableInclude({ name: 'Customer', fields: [{ name: 'CustNum', dataType: 'INTEGER' }] })
-const ts = generateTypeScript({ name: 'Customer', fields: [{ name: 'CustNum', dataType: 'INTEGER' }] })
 ```
 
 ## Structure
@@ -86,7 +78,6 @@ src/
 │   ├── tables.ts
 │   └── includes.ts
 ├── utils/
-│   ├── data-contracts.ts   # .i / JSON Schema / TypeScript generators
 │   ├── doc-comment.ts      # ABLDoc comment generator
 │   └── doc-parser.ts       # ABLDoc comment parser
 └── index.ts
