@@ -92,6 +92,11 @@ src/
 └── index.ts
 ```
 
+## Acknowledgments
+
+- Lint rules inspired by [Prolint](https://github.com/jcaillon/prolint) by Jurjen Dijkstra and contributors
+- ABL parsing powered by [tree-sitter-abl](https://github.com/usagi-coffee/tree-sitter-abl)
+
 ## License
 
 MIT
