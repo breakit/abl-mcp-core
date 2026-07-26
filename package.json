@@ -1,0 +1,39 @@
+{
+  "name": "@breakit/abl-mcp-core",
+  "version": "0.1.0",
+  "description": "Pure ABL analysis layer — parser, DF reader, PROPATH resolver, symbol extraction",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./parser/*": "./dist/parser/*.js",
+    "./project/*": "./dist/project/*.js",
+    "./symbol/*": "./dist/symbol/*.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "web-tree-sitter": "^0.26.0",
+    "@usagi-coffee/tree-sitter-abl": "^0.0.52"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/breakit/abl-mcp-core.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
