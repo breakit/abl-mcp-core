@@ -1,23 +1,8 @@
 import { readFileSync, existsSync } from 'fs'
 import { join } from 'path'
+import type { AblMcpConfig } from '../contracts/project.js'
 
-export interface AblMcpConfig {
-  /** Project root directory */
-  projectRoot: string
-  /** Directories containing .df schema files */
-  schemaDirs: string[]
-  /** PROPATH directories */
-  propath: string[]
-  /** Database connections (logical name -> physical path) */
-  databases: Record<string, string>
-  /** CCS-specific config */
-  ccs?: {
-    /** Base package for generated classes */
-    basePackage?: string
-    /** Output directory for generated code */
-    outputDir?: string
-  }
-}
+export type { AblMcpConfig }
 
 export function loadConfig(rootDir: string): AblMcpConfig {
   const config: AblMcpConfig = {

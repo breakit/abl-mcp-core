@@ -1,17 +1,8 @@
-import { parseAblFile, type IncludeNode } from '../parser/abl.js'
+import { parseAblFile } from '../parser/abl.js'
 import { resolveIncludePath } from '../project/protopath.js'
+import type { IncludeSymbol, ResolvedIncludes } from '../contracts/symbol.js'
 
-export interface IncludeSymbol {
-  rawPath: string
-  resolvedPath: string | null
-  line: number
-}
-
-export interface ResolvedIncludes {
-  source: string
-  filePath: string
-  includes: IncludeSymbol[]
-}
+export type { IncludeSymbol, ResolvedIncludes }
 
 export function resolveIncludes(
   source: string,

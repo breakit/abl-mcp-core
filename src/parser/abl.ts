@@ -1,5 +1,6 @@
 import Parser from 'web-tree-sitter'
 import type { QueryCapture, SyntaxNode } from 'web-tree-sitter'
+import type { AblFileResult, FunctionNode, ParameterNode, IncludeNode, PreprocessorDefineNode, PreprocessorRefNode } from '../contracts/abl.js'
 
 let parser: Parser | null = null
 let language: Parser.Language | null = null
@@ -8,7 +9,6 @@ export async function initAblParser(): Promise<Parser> {
   if (parser) return parser
   await Parser.init()
   const Lang = await Parser.Language.load(
-    // tree-sitter-abl WASM will be loaded from node_modules
     new URL('@usagi-coffee/tree-sitter-abl/tree-sitter-abl.wasm', import.meta.url).href,
   )
   language = Lang
@@ -25,50 +25,6 @@ export function getAblLanguage(): Parser.Language {
 export function getParser(): Parser {
   if (!parser) throw new Error('ABL parser not initialized.')
   return parser
-}
-
-export interface AblFileResult {
-  tree: Parser.Tree
-  text: string
-  functions: FunctionNode[]
-  includes: IncludeNode[]
-  preprocessorDefines: PreprocessorDefineNode[]
-  preprocessorRefs: PreprocessorRefNode[]
-}
-
-export interface FunctionNode {
-  name: string
-  startLine: number
-  endLine: number
-  startByte: number
-  endByte: number
-  parameters: ParameterNode[]
-}
-
-export interface ParameterNode {
-  name: string
-  direction: 'input' | 'output' | 'input-output'
-  dataType: string | null
-}
-
-export interface IncludeNode {
-  path: string
-  startByte: number
-  endByte: number
-  line: number
-}
-
-export interface PreprocessorDefineNode {
-  name: string
-  value: string | null
-  startByte: number
-  endByte: number
-}
-
-export interface PreprocessorRefNode {
-  name: string
-  startByte: number
-  endByte: number
 }
 
 export function parseAblFile(text: string): AblFileResult {

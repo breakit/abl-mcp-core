@@ -1,12 +1,8 @@
 import { readFileSync, existsSync, statSync } from 'fs'
 import { join, dirname, resolve, relative, sep } from 'path'
+import type { PropPathConfig } from '../contracts/project.js'
 
-export interface PropPathConfig {
-  /** Directories in PROPATH order */
-  directories: string[]
-  /** Path to abl.toml or project root */
-  projectRoot: string
-}
+export type { PropPathConfig }
 
 export function loadPropath(rootDir: string): PropPathConfig {
   const directories: string[] = [rootDir]

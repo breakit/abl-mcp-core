@@ -1,11 +1,7 @@
-import { parseAblFile, type FunctionNode } from '../parser/abl.js'
+import { parseAblFile } from '../parser/abl.js'
+import type { FunctionSymbol } from '../contracts/symbol.js'
 
-export interface FunctionSymbol {
-  name: string
-  filePath: string
-  line: number
-  signature: string
-}
+export type { FunctionSymbol }
 
 export function extractFunctions(source: string, filePath: string): FunctionSymbol[] {
   const result = parseAblFile(source)

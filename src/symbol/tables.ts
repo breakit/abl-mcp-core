@@ -1,25 +1,6 @@
-import { parseDf, type DfTable, formatDfSummary } from '../parser/df.js'
-
-export interface TableSymbol {
-  name: string
-  sourceFile: string
-  fields: FieldInfo[]
-  indexes: IndexInfo[]
-}
-
-export interface FieldInfo {
-  name: string
-  dataType: string
-  mandatory: boolean
-  initial: string | null
-}
-
-export interface IndexInfo {
-  name: string
-  fields: string[]
-  unique: boolean
-  primary: boolean
-}
+import { parseDf, formatDfSummary } from '../parser/df.js'
+import type { DfTable } from '../contracts/df.js'
+import type { TableSymbol, FieldInfo, IndexInfo } from '../contracts/symbol.js'
 
 export function loadTablesFromDf(text: string, sourceFile: string): TableSymbol[] {
   const tables = parseDf(text)
@@ -42,4 +23,4 @@ export function loadTablesFromDf(text: string, sourceFile: string): TableSymbol[
 }
 
 export { formatDfSummary }
-export type { DfTable }
+export type { DfTable, TableSymbol, FieldInfo, IndexInfo }
