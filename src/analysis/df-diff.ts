@@ -13,6 +13,7 @@ export interface TableDiff {
   modifiedFields: FieldDiff[]
   addedIndexes: string[]
   removedIndexes: string[]
+  changes: string[]
 }
 
 export interface FieldDiff {

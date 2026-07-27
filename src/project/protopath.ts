@@ -1,5 +1,5 @@
-import { readFileSync, existsSync, statSync } from 'fs'
-import { join, dirname, resolve, relative, sep } from 'path'
+import { readFileSync, existsSync, readdirSync, statSync } from 'fs'
+import { dirname, join, resolve } from 'path'
 import type { PropPathConfig } from '../contracts/project.js'
 
 export type { PropPathConfig }
@@ -14,7 +14,7 @@ export function loadPropath(rootDir: string): PropPathConfig {
       const content = readFileSync(tomlPath, 'utf-8')
       const propathMatch = content.match(/propath\s*=\s*\[([^\]]+)\]/i)
       if (propathMatch) {
-        const paths = propathMatch[1].split(',').map(p => p.trim().replace(/["']/g, '').trim())
+        const paths = propathMatch[1].split(',').map((p: string) => p.trim().replace(/["']/g, '').trim())
         for (const p of paths) {
           const resolved = resolve(rootDir, p)
           if (existsSync(resolved)) directories.push(resolved)
@@ -84,10 +84,4 @@ export function findProjectFiles(
   }
   walk(rootDir)
   return files
-}
-
-function readdirSync(path: string, opts: { withFileTypes: true }): import('fs').Dirent[] {
-  // Re-exported to allow mocking in tests
-  const fs = require('fs') as typeof import('fs')
-  return fs.readdirSync(path, opts)
 }

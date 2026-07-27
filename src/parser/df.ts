@@ -44,7 +44,10 @@ export function parseDf(text: string): DfTable[] {
     const addField = line.match(/^ADD\s+FIELD\s+["']?(\w+)["']?\s+OF\s+["']?(\w+)["']?\s+AS\s+(\w+)/i)
     if (addField && currentTable) {
       inIndex = false
-      if (currentField && currentTable) currentTable.fields.push(currentField as DfField)
+      if (currentField) {
+        const fields = currentTable.fields ?? (currentTable.fields = [])
+        fields.push(currentField as DfField)
+      }
       currentField = {
         name: addField[1],
         dataType: addField[3],
@@ -86,7 +89,10 @@ export function parseDf(text: string): DfTable[] {
     const addIndex = line.match(/^ADD\s+INDEX\s+["']?(\w+)["']?\s+ON\s+["']?(\w+)["']?/i)
     if (addIndex && currentTable) {
       inIndex = true
-      if (currentField && currentTable) currentTable.fields.push(currentField as DfField)
+      if (currentField) {
+        const fields = currentTable.fields ?? (currentTable.fields = [])
+        fields.push(currentField as DfField)
+      }
       currentField = null
       currentIndex = {
         name: addIndex[1],
@@ -108,7 +114,8 @@ export function parseDf(text: string): DfTable[] {
 
       const idxField = line.match(/^INDEX\s+FIELD\s+["']?(\w+)["']?\s+(ASCENDING|DESCENDING)?\s*$/i)
       if (idxField) {
-        currentIndex.fields.push({
+        const fields = currentIndex.fields ?? (currentIndex.fields = [])
+        fields.push({
           fieldName: idxField[1],
           ascending: (idxField[2] || 'ASCENDING').toUpperCase() !== 'DESCENDING',
         })
@@ -120,9 +127,15 @@ export function parseDf(text: string): DfTable[] {
     }
   }
 
-  if (currentField && currentTable) currentTable.fields.push(currentField as DfField)
+  if (currentField && currentTable) {
+    const fields = currentTable.fields ?? (currentTable.fields = [])
+    fields.push(currentField as DfField)
+  }
   if (currentTable) {
-    if (currentIndex) currentTable.indexes.push(currentIndex as DfIndex)
+    if (currentIndex) {
+      const indexes = currentTable.indexes ?? (currentTable.indexes = [])
+      indexes.push(currentIndex as DfIndex)
+    }
     tables.push(currentTable as DfTable)
   }
 

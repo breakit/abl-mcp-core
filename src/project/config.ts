@@ -19,14 +19,14 @@ export function loadConfig(rootDir: string): AblMcpConfig {
 
       const propathMatch = content.match(/propath\s*=\s*\[([^\]]+)\]/i)
       if (propathMatch) {
-        config.propath = propathMatch[1].split(',').map(p =>
+        config.propath = propathMatch[1].split(',').map((p: string) =>
           p.trim().replace(/["']/g, '').trim(),
         ).filter(Boolean)
       }
 
       const schemaMatch = content.match(/schema_dirs\s*=\s*\[([^\]]+)\]/i)
       if (schemaMatch) {
-        config.schemaDirs = schemaMatch[1].split(',').map(p =>
+        config.schemaDirs = schemaMatch[1].split(',').map((p: string) =>
           p.trim().replace(/["']/g, '').trim(),
         ).filter(Boolean)
       }

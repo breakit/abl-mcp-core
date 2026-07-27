@@ -1,14 +1,13 @@
-import Parser from 'web-tree-sitter'
-import type { QueryCapture, SyntaxNode } from 'web-tree-sitter'
+import { Language, Parser, Query, type Node as SyntaxNode, type QueryCapture } from 'web-tree-sitter'
 import type { AblFileResult, FunctionNode, ParameterNode, IncludeNode, PreprocessorDefineNode, PreprocessorRefNode } from '../contracts/abl.js'
 
 let parser: Parser | null = null
-let language: Parser.Language | null = null
+let language: Language | null = null
 
 export async function initAblParser(): Promise<Parser> {
   if (parser) return parser
   await Parser.init()
-  const Lang = await Parser.Language.load(
+  const Lang = await Language.load(
     new URL('@usagi-coffee/tree-sitter-abl/tree-sitter-abl.wasm', import.meta.url).href,
   )
   language = Lang
@@ -17,7 +16,7 @@ export async function initAblParser(): Promise<Parser> {
   return parser
 }
 
-export function getAblLanguage(): Parser.Language {
+export function getAblLanguage(): Language {
   if (!language) throw new Error('ABL parser not initialized. Call initAblParser() first.')
   return language
 }
@@ -30,6 +29,7 @@ export function getParser(): Parser {
 export function parseAblFile(text: string): AblFileResult {
   const p = getParser()
   const tree = p.parse(text)
+  if (!tree) throw new Error('ABL parser has no language assigned.')
   const root = tree.rootNode
 
   const functions: FunctionNode[] = []
@@ -123,7 +123,8 @@ function collectNodes(
 
 export function queryAbl(source: string, queryPattern: string): QueryCapture[] {
   const lang = getAblLanguage()
-  const query = lang.query(queryPattern)
+  const query = new Query(lang, queryPattern)
   const tree = getParser().parse(source)
+  if (!tree) throw new Error('ABL parser has no language assigned.')
   return query.captures(tree.rootNode)
 }
