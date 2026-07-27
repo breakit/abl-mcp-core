@@ -74,6 +74,39 @@ src/
 └── index.ts
 ```
 
+## Development
+
+```sh
+git clone https://github.com/breakit/abl-mcp-core.git
+cd abl-mcp-core
+yarn install
+yarn build
+```
+
+### Local Multi-Repo Development
+
+This repo is designed to work as a sibling of:
+
+- `../abl-mcp-server`
+- `../abl-mcp-generators`
+- `../abl-mcp-contracts`
+- `../abl-mcp-doc`
+
+Documentation helpers such as ABLDoc parsing and comment generation live in `../abl-mcp-doc`, not in this package.
+
+When you update `abl-mcp-core`, rebuild it before testing dependent repos:
+
+```sh
+yarn build
+```
+
+Then, from `../abl-mcp-server`, refresh the local links:
+
+```sh
+yarn build:local-deps
+yarn link:local-deps
+```
+
 ## Acknowledgments
 
 - Lint rules inspired by [Prolint](https://github.com/jcaillon/prolint) by Jurjen Dijkstra and contributors
