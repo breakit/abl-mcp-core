@@ -7,7 +7,7 @@ Part of the [abl-mcp-server](https://github.com/breakit/abl-mcp-server) ecosyste
 ## Features
 
 ### Parsing & Analysis
-- **ABL parser** — Parse `.p`/`.w`/`.cls`/`.i` files via tree-sitter-abl, extract functions, includes, preprocessor defines/references
+- **ABL parser** — Parse `.p`/`.w`/`.cls`/`.i` files via tree-sitter-abl, extract functions, methods, constructors, class info, using statements, includes, preprocessor defines/references
 - **DF parser** — Parse `.df` schema files into structured tables, fields, indexes, and sequences
 - **DF diff** — Compare two `.df` files and produce a structured diff of added/removed/modified tables, fields, indexes
 - **Dependency graph** — Build a full project dependency graph — includes, function calls, cycles, orphans
@@ -33,6 +33,15 @@ Generating temp-table includes, ProDataSet includes, JSON Schema, and TypeScript
 import { initAblParser, parseAblFile, loadPropath, parseDf } from '@breakit/abl-mcp-core'
 import { buildDependencyGraph, diffDfFiles, lintProject, findDeadCode } from '@breakit/abl-mcp-core'
 import { generateOpenApiSpec } from '@breakit/abl-mcp-core'
+
+// Parse an ABL class file — methods, constructors, class info, using, includes
+await initAblParser()
+const result = parseAblFile(sourceText)
+console.log(result.classInfo?.fullName)    // "sagedpw.employee.CEBILDUNG"
+console.log(result.methods.length)         // 32
+console.log(result.constructors.length)    // 3
+console.log(result.usingStatements)        // ["Progress.Json.ObjectModel.ObjectModelParser"]
+
 // Dependency analysis
 const graph = buildDependencyGraph('./project-root')
 
