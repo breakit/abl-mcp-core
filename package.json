@@ -16,7 +16,7 @@
   },
   "files": ["dist"],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && mkdir -p dist/parser/@usagi-coffee/tree-sitter-abl && cp node_modules/@usagi-coffee/tree-sitter-abl/tree-sitter-abl.wasm dist/parser/@usagi-coffee/tree-sitter-abl/",
     "test": "vitest run",
     "test:watch": "vitest"
   },
